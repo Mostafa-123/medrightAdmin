@@ -1,0 +1,38 @@
+
+.header-navigation-area a{
+    font-size: 20px !important;
+}
+@media (max-width: 1199px) {
+    .header-area.header-default .header-align .header-action-area .widget-language .current i{
+        font-size: 15px !important;
+        font-weight: bold;
+    }
+    .header-area.header-default .header-align .header-action-area i{
+        font-size: 25px !important;
+        margin-left: 10px;
+    }
+    .header-navigation-area a{
+        font-size: 20px !important;
+    }
+}
+
+
+
+/* general  */
+
+ul,p,h2{
+    direction: rtl;
+  }
+
+  li {
+    text-align: right; /* Align text to the right */
+  }
+  .rtl{
+    direction: rtl !important;
+  }
+  .ltr{
+    direction: ltr !important;
+  }
+  .hidden-input{
+    display: none;
+  }
