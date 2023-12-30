@@ -167,7 +167,8 @@
                 return hiddenInputType;
             }
 
-            function createElement(divClass,inputType, inputName, inputPlaceholder, inputValue = null, inputId, required =
+            function createElement(divClass, inputType, inputName, inputPlaceholder, inputValue = null, inputId,
+                required =
                 false, labelText =
                 null) {
                 const divTd = document.createElement("div");
@@ -208,7 +209,8 @@
             function createFormExisitingRow(row) {
                 const inputTypeValue = row['input_type'];
 
-                if (inputTypeValue == 'number' || inputTypeValue == 'phone'|| inputTypeValue == 'password' || inputTypeValue == 'textarea' ||
+                if (inputTypeValue == 'number' || inputTypeValue == 'phone' || inputTypeValue == 'password' ||
+                    inputTypeValue == 'textarea' ||
                     inputTypeValue == 'text') {
                     const tr = document.createElement("div");
                     tr.className = "row";
@@ -223,11 +225,15 @@
                     });
                     actionTd.appendChild(removeButton);
                     tr.appendChild(createHiddenElement(inputTypeValue));
-                    tr.appendChild(createElement("col-3","text", "fieldName[]", "Name", row['name'], "nameid", true));
-                    tr.appendChild(createElement("col-3","text", "placeholder[]", "Placeholder", row['placeholder'],
+                    tr.appendChild(createElement("col-3", "text", "fieldName[]", "Name", row['name'], "nameid",
+                        true));
+                    tr.appendChild(createElement("col-3", "text", "placeholder[]", "Placeholder", row[
+                            'placeholder'],
                         "placeholderid", true));
-                    tr.appendChild(createElement("col-3","number", "length[]", "Length", row['length'], "lengthid", true));
-                    tr.appendChild(createElement("col-2","checkbox", "required[]", "input", row['required'], "requiredid",
+                    tr.appendChild(createElement("col-3", "number", "length[]", "Length", row['length'], "lengthid",
+                        true));
+                    tr.appendChild(createElement("col-2", "checkbox", "required[]", "input", row['required'],
+                        "requiredid",
                         false,
                         "Required"));
                     tr.appendChild(actionTd);
@@ -257,10 +263,13 @@
                     });
                     actionTd.appendChild(removeButton);
                     tr.appendChild(createHiddenElement(inputTypeValue));
-                    tr.appendChild(createElement("col-3","text", "fieldName[]", "Name", row['name'], "nameid", true));
-                    tr.appendChild(createElement("col-3","text", "placeholder[]", "Placeholder", row['placeholder'],
+                    tr.appendChild(createElement("col-3", "text", "fieldName[]", "Name", row['name'], "nameid",
+                        true));
+                    tr.appendChild(createElement("col-3", "text", "placeholder[]", "Placeholder", row[
+                            'placeholder'],
                         "placeholderid", true));
-                    tr.appendChild(createElement("col-3","checkbox", "required[]", "input", row['required'], "requiredid",
+                    tr.appendChild(createElement("col-3", "checkbox", "required[]", "input", row['required'],
+                        "requiredid",
                         false,
                         "Required"));
                     tr.appendChild(actionTd);
@@ -333,7 +342,7 @@
                     filesNumTd.style.display = row['multi_file'] == 1 ? true : false;
                     filesNumInput.name = "filesNum[]";
                     filesNumInput.id = "filesNum";
-                    filesNumInput.required = multiFileInput.checked? true:false;
+                    filesNumInput.required = multiFileInput.checked ? true : false;
                     filesNumTd.appendChild(filesNumInput);
 
                     const multiFileChangeHandler = () => {
@@ -355,12 +364,14 @@
                     actionTd.appendChild(removeButton);
                     tr.appendChild(createHiddenElement(inputTypeValue));
 
-                    tr.appendChild(createElement("col-3","text", "fieldName[]", "Name", row['name'], "nameid", true));
-                    tr.appendChild(createElement("col-3","number", "fileSize[]", "File Size", row['file_size'],
+                    tr.appendChild(createElement("col-3", "text", "fieldName[]", "Name", row['name'], "nameid",
+                        true));
+                    tr.appendChild(createElement("col-3", "number", "fileSize[]", "File Size", row['file_size'],
                         "fileSizeid", true));
                     tr.appendChild(fileTypesTd);
                     tr.appendChild(filesNumTd);
-                    tr.appendChild(createElement("col-3","checkbox", "required[]", "input", row['required'], "requiredid",
+                    tr.appendChild(createElement("col-3", "checkbox", "required[]", "input", row['required'],
+                        "requiredid",
                         false,
                         "Required"));
                     tr.appendChild(multiFileTd);
@@ -401,7 +412,8 @@
             function createRow() {
                 const inputTypeValue = document.getElementById("input_type").value;
 
-                if (inputTypeValue == 'number' || inputTypeValue == 'phone' || inputTypeValue == 'password'|| inputTypeValue == 'textarea' ||
+                if (inputTypeValue == 'number' || inputTypeValue == 'phone' || inputTypeValue == 'password' ||
+                    inputTypeValue == 'textarea' ||
                     inputTypeValue == 'text') {
                     const tr = document.createElement("div");
                     tr.className = "row";
@@ -416,11 +428,13 @@
                     });
                     actionTd.appendChild(removeButton);
                     tr.appendChild(createHiddenElement(inputTypeValue));
-                    tr.appendChild(createElement("col-3","text", "fieldName[]", "Name", null, "nameid", true));
-                    tr.appendChild(createElement("col-3","text", "placeholder[]", "Placeholder", null, "placeholderid",
+                    tr.appendChild(createElement("col-3", "text", "fieldName[]", "Name", null, "nameid", true));
+                    tr.appendChild(createElement("col-3", "text", "placeholder[]", "Placeholder", null,
+                        "placeholderid",
                         true));
-                    tr.appendChild(createElement("col-3","number", "length[]", "Length", null, "lengthid", true));
-                    tr.appendChild(createElement("col-2","checkbox", "required[]", "input", null, "requiredid", false,
+                    tr.appendChild(createElement("col-3", "number", "length[]", "Length", null, "lengthid", true));
+                    tr.appendChild(createElement("col-2", "checkbox", "required[]", "input", null, "requiredid",
+                        false,
                         "Required"));
                     tr.appendChild(actionTd);
                     rowParent.appendChild(tr);
@@ -449,10 +463,12 @@
                     });
                     actionTd.appendChild(removeButton);
                     tr.appendChild(createHiddenElement(inputTypeValue));
-                    tr.appendChild(createElement("col-3","text", "fieldName[]", "Name", null, "nameid", true));
-                    tr.appendChild(createElement("col-3","text", "placeholder[]", "Placeholder", null, "placeholderid",
+                    tr.appendChild(createElement("col-3", "text", "fieldName[]", "Name", null, "nameid", true));
+                    tr.appendChild(createElement("col-3", "text", "placeholder[]", "Placeholder", null,
+                        "placeholderid",
                         true));
-                    tr.appendChild(createElement("col-3","checkbox", "required[]", "input", null, "requiredid", false,
+                    tr.appendChild(createElement("col-3", "checkbox", "required[]", "input", null, "requiredid",
+                        false,
                         "Required"));
                     tr.appendChild(actionTd);
                     rowParent.appendChild(tr);
@@ -531,12 +547,13 @@
                     filesNumTd.style.display = 'none';
                     filesNumInput.name = "filesNum[]";
                     filesNumInput.id = "filesNum";
-                    filesNumInput.required =false;
+                    filesNumInput.required = false;
                     filesNumTd.appendChild(filesNumInput);
 
                     const multiFileChangeHandler = () => {
                         filesNumTd.style.display = multiFileInput.checked ? 'block' : 'none';
-                        filesNumInput.required = multiFileInput.checked; // Update the required attribute based on the checkbox state
+                        filesNumInput.required = multiFileInput
+                            .checked; // Update the required attribute based on the checkbox state
                     };
 
                     multiFileInput.addEventListener("change", multiFileChangeHandler);
@@ -554,12 +571,13 @@
                     actionTd.appendChild(removeButton);
                     tr.appendChild(createHiddenElement(inputTypeValue));
 
-                    tr.appendChild(createElement("col-3","text", "fieldName[]", "Name", null, "nameid", true));
+                    tr.appendChild(createElement("col-3", "text", "fieldName[]", "Name", null, "nameid", true));
                     tr.appendChild(fileSizeTd);
                     tr.appendChild(fileTypesTd);
                     tr.appendChild(filesNumTd);
                     tr.appendChild(multiFileTd);
-                    tr.appendChild(createElement("col-3","checkbox", "required[]", "input", null, "requiredid", false,
+                    tr.appendChild(createElement("col-3", "checkbox", "required[]", "input", null, "requiredid",
+                        false,
                         "Required"));
                     tr.appendChild(actionTd);
                     rowParent.appendChild(tr);
@@ -587,10 +605,81 @@
                         existingRows.push(newRowData);
                         document.getElementById('rows').value = JSON.stringify(existingRows);
                     }
+                } else if (inputTypeValue == 'selector') {
+                    const tr = document.createElement("div");
+                    tr.className = "row";
+                    const actionTd = document.createElement("div");
+                    actionTd.className = "col-1";
+                    const removeButton = document.createElement("a");
+                    removeButton.innerText = "X";
+                    removeButton.className = "btn btn-danger";
+                    removeButton.addEventListener("click", () => {
+                        tr.remove();
+                        updateRowsData();
+                    });
+                    actionTd.appendChild(removeButton);
+
+                    tr.appendChild(createHiddenElement(inputTypeValue));
+                    tr.appendChild(createElement("col-3", "text", "fieldName[]", "Name", null, "nameid", true));
+                    tr.appendChild(createElement("col-3", "text", "placeholder[]", "Placeholder", null,
+                        "placeholderid", true));
+
+                    const numOptionsInput = createInputField("Number of Options");
+                    numOptionsInput.type = "number";
+                    numOptionsInput.min = "0";
+                    numOptionsInput.name = "numOptions[]";
+                    numOptionsInput.id = "numOptions";
+                    numOptionsInput.required = true;
+
+                    const createOptionsButton = document.createElement("button");
+                    createOptionsButton.innerText = "Create Options";
+                    createOptionsButton.className = "btn btn-primary";
+                    createOptionsButton.addEventListener("click", () => {
+                        event.preventDefault();
+                        createOptionsInputs(tr);
+                        updateRowsData();
+                    });
+
+                    const optionsContainer = document.createElement("div");
+                    optionsContainer.id = "optionsContainer";
+
+                    const actionContainer = document.createElement("div");
+                    actionContainer.className = "col-2";
+                    actionContainer.appendChild(numOptionsInput);
+                    actionContainer.appendChild(createOptionsButton);
+                    actionContainer.appendChild(optionsContainer);
+
+                    tr.appendChild(actionContainer);
+                    tr.appendChild(actionTd);
+                    rowParent.appendChild(tr);
+
+                    const newRowData = {
+                        inputType: inputTypeValue,
+                        name: "",
+                        placeholder: "",
+                        numOptions: 0,
+                        options: [],
+                    };
+
+                    existingRows.push(newRowData);
+                    document.getElementById('rows').value = JSON.stringify(existingRows);
                 }
 
                 function removeTr(element) {
                     element.remove();
+                }
+            }
+
+
+            function createOptionsInputs(parentElement) {
+                const numOptions = document.getElementById("numOptions").value;
+                const optionsContainer = parentElement.querySelector("#optionsContainer");
+                optionsContainer.innerHTML = ""; // Clear previous inputs
+
+                for (let i = 1; i <= numOptions; i++) {
+                    const optionInput = createInputField(`Option ${i}`);
+                    optionInput.name = `options[${i}]`;
+                    optionsContainer.appendChild(optionInput);
                 }
             }
 
@@ -730,7 +819,47 @@
                                 }
                             }
 
+                        } else if (inputTypeValue === "selector") {
+                const inputTypeInput = row.querySelector('input[name="input_type[]"]');
+                const nameInput = row.querySelector('input[name="fieldName[]"]');
+                const placeholderInput = row.querySelector('input[name="placeholder[]"]');
+                const numOptionsInput = row.querySelector('input[name="numOptions[]"]');
+
+                if (inputTypeInput && nameInput && placeholderInput && numOptionsInput) {
+                    const numOptions = numOptionsInput.value;
+                    const options = [];
+
+                    for (let i = 1; i <= numOptions; i++) {
+                        const optionInput = row.querySelector(`#optionsContainer input[name="options[${i}]"]`);
+                        if (optionInput) {
+                            options.push(optionInput.value);
                         }
+                    }
+
+                    const existingRow = {
+                        inputType: inputTypeInput.value,
+                        name: nameInput.value,
+                        placeholder: placeholderInput.value,
+                        numOptions: numOptions,
+                        options: options,
+                    };
+
+                    const existingRowIndex = existingRows.findIndex(row => (
+                        row.inputType === existingRow.inputType &&
+                        row.name === existingRow.name &&
+                        row.placeholder === existingRow.placeholder &&
+                        row.numOptions === existingRow.numOptions &&
+                        JSON.stringify(row.options) === JSON.stringify(existingRow.options)
+                    ));
+
+                    if (existingRowIndex !== -1) {
+                        existingRows[existingRowIndex] = existingRow;
+                    } else {
+                        existingRows.push(existingRow);
+                    }
+                }
+            }
+
                     }
 
                 });
