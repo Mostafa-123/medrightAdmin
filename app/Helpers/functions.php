@@ -18,6 +18,7 @@ function getPage($slug){
     return null;
     }
 
+
     function websiteUrl($slug=''){
         return Config::get('website_url').'/'.$slug;
         // $websiteUrl = Config::get('website_url');

@@ -157,6 +157,7 @@ Route::middleware(['auth','checkRole'])->prefix('admin')->group(function () {
     });
 
     Route::group(['prefix' => 'forms'], function () {
+        Route::post('/export', [FormController::class, 'export'])->name('forms.export');
         Route::resource('/', FormController::class)->names([
             'index' => 'forms.index',
             'create' => 'forms.create',
@@ -176,7 +177,7 @@ Route::get('/per', [UserController::class, 'per'])->name('error.view');
 Route::get('pro',function(){
     return view('Dashboard.dashboard.requests.show');
 });
-
+    Route::post('form/request', [FormController::class,'formRequest'])->name('form_request');
 Route::get('/form', [FormController::class, 'create']);
 
 require __DIR__.'/auth.php';

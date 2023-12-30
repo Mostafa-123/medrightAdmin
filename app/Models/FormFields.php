@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FormFields extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
     protected $casts = [
         'files_type' => 'array',
     ];
@@ -21,6 +21,6 @@ class FormFields extends Model
     }
     public function formRequests()
     {
-        return $this->belongsTo(FormRequests::class, 'form_id');
+        return $this->hasMany(FormRequests::class, 'field_id');
     }
 }

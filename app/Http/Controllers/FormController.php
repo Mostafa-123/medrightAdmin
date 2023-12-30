@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\FormsDataTable;
+use App\Exports\FormRequestsExport;
 use App\Models\Form;
 use App\Models\FormFields;
+use App\Models\FormRequests;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FormController extends Controller
 {
@@ -24,7 +28,8 @@ class FormController extends Controller
             'email',
             'file',
             'phone',
-            'textarea'
+            'textarea',
+            'password'
         ];
         return view('Dashboard.dashboard.forms.create_edit',compact('types'));
     }
@@ -34,7 +39,7 @@ class FormController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        dd($request);
         $this->validateForm($request);
 
         $form = Form::create([
@@ -78,6 +83,36 @@ class FormController extends Controller
         return view('Dashboard.dashboard.forms.show',compact('form'));
     }
 
+    public function formRequest(Request $request)
+    {
+        $form = json_decode($request->form, true);
+        // dd($form);
+        if (isset($form['fields'])) {
+            foreach ($form['fields'] as $field) {
+                if ($request->has($field['id'])) {
+                    if($field['input_type']=='file'){
+                        $imageName =$form['id'] . $field['name'] . time() . '.' . $request->image->extension();
+                        $data=[
+                            'form_id'=>$form['id'],
+                            'field_id'=>$field['id'],
+                            'value'=>'forms/images'.$imageName,
+                        ];
+                    $request[$field['id']]->move(public_path('froms/images'), $imageName);
+                    }else{
+                    $data=[
+                        'form_id'=>$form['id'],
+                        'field_id'=>$field['id'],
+                        'value'=>$request[$field['id']],
+                    ];}
+                    FormRequests::create($data);
+                }
+            }
+        }
+
+        return redirect()->back()->with('success','your request is sended successfully please wait until we call you please dont sended more than one time');
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -89,8 +124,10 @@ class FormController extends Controller
             'email',
             'file',
             'phone',
-            'textarea'
+            'textarea',
+            'password'
         ];
+        // dd($form->fields);
         return view('Dashboard.dashboard.forms.create_edit',compact('form','types'));
     }
 
@@ -99,8 +136,10 @@ class FormController extends Controller
      */
     public function update(Request $request, Form $form)
 {
-    dd($request);
+    // dd($request);
     // $this->validateForm($request);
+
+    $existingFieldIds = $form->fields()->pluck('id')->toArray();
 
     $updateData = [
         'form_link' => $request->input('form_link'),
@@ -108,10 +147,10 @@ class FormController extends Controller
         'description' => $request->input('description'),
         'informations' => $request->input('informations'),
         'published' => $request->input('published') === 'true',
-        'fields' => json_encode($request->rows),
     ];
 
     $form->update($updateData);
+    FormFields::destroy($existingFieldIds);
 
     $rows = json_decode($request->input('rows'), true);
 
@@ -155,4 +194,21 @@ class FormController extends Controller
         ];
         return $request->validate($valid,$messages);
     }
+
+    public function export(Request $request){
+        switch ($request->export_type){
+            case'csv':
+                if($request->form_id){
+                    return Excel::download(new FormRequestsExport($request->form_id),Form::find($request->form_id)->name.time().'.csv',\Maatwebsite\Excel\Excel::CSV);
+                }
+                break;
+            case'excel':
+                if($request->form_id){
+                    return Excel::download(new FormRequestsExport($request->form_id),Form::find($request->form_id)->name.time().'.xlsx',\Maatwebsite\Excel\Excel::XLSX);
+                }
+                break;
+        }
+    }
+
+
 }

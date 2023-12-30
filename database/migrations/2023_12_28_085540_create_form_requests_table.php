@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('form_id');
             $table->unsignedBigInteger('field_id');
-            $table->string('value');
+            $table->string('value')->nullable();
             $table->foreign('form_id')->references('id')->on('forms')->onDelete('cascade');
             $table->foreign('field_id')->references('id')->on('form_fields')->onDelete('cascade');
             $table->timestamps();
