@@ -1,139 +1,141 @@
 @extends('Dashboard.dashboard.layouts.app')
 @section('css')
-    <style>
-        .custom-select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background: transparent;
-            background-image: url('path-to-your-arrow-icon.png');
-            background-position: right center;
-            background-repeat: no-repeat;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 8px 12px;
-            font-size: 16px;
-            width: 100%;
-        }
+<style>
+    .custom-select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: transparent;
+        background-image: url('path-to-your-arrow-icon.png');
+        background-position: right center;
+        background-repeat: no-repeat;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 8px 12px;
+        font-size: 16px;
+        width: 100%;
+    }
 
-        .select2-container--default .select2-selection--single,
-        .select2-container--default .select2-selection--multiple {
-            min-height: 40px;
-        }
-    </style>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    .select2-container--default .select2-selection--single,
+    .select2-container--default .select2-selection--multiple {
+        min-height: 40px;
+    }
+</style>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('title')
-    {{ isset($form) ? __('Edit') : __('Create') }}
+{{ isset($form) ? __('Edit') : __('Create') }}
 @endsection
 @section('content')
-    @if (isset($form))
-        @php
-            $formFields = $form->fields ?? [];
-        @endphp
-    @endif
+@if (isset($form))
+@php
+$formFields = $form->fields ?? [];
+@endphp
+@endif
 
-    <div class="page-content-wrapper">
-        <div class="page-content">
-            {{-- @dd($existingRows) --}}
-            <div class="card radius-15 border-lg-top-primary">
-                <div class="card-body">
-                    <div class="card-title">
-                        <h4 class="mb-0">{{ isset($form) ? __('Edit :type', ['type' => $form->name]) : __('Create') }}</h4>
-                    </div>
-                    <hr>
-                    <form method="POST"
-                        action="{{ isset($form) ? route('forms.update', ['form' => $form]) : route('forms.store') }}"
-                        enctype="multipart/form-data">
-                        @if (isset($form))
-                            @method('PUT')
-                        @endif
-                        @csrf
-                        <div class="row">
-                            <input type="hidden" name="rows" id="rows" value="[]">
-                            <div style="height: 0.5cm;"></div>
-                            <x-forms.text-input-component name="name" id="name" type="text" text="Name"
-                                value="{{ isset($form) ? $form->name : (is_array(old('name')) ? '' : old('name')) }}"
-                                placeholder="{{ __('Enter :value', ['value' => __('Form Name')]) }}">
-                            </x-forms.text-input-component>
-                            <x-input-error :messages="$errors->get('name')" class="mt-2 text-danger" />
-                            <x-forms.text-input-component name="form_link" id="form_link" type="text" text="Form Link"
-                                value="{{ isset($form) ? $form->form_link : old('form_link') }}"
-                                placeholder="{{ __('Enter :value', ['value' => __('Form Link')]) }}">
-                            </x-forms.text-input-component>
-                            <x-input-error :messages="$errors->get('form_link')" class="mt-2 text-danger" />
-                            <x-forms.text-input-component name="description" id="description" type="text"
-                                text="Description" value="{{ isset($form) ? $form->description : old('description') }}"
-                                placeholder="{{ __('Enter :value', ['value' => __('Description')]) }}">
-                            </x-forms.text-input-component>
-                            <x-input-error :messages="$errors->get('description')" class="mt-2 text-danger" />
+<div class="page-content-wrapper">
+    <div class="page-content">
+        {{-- @dd($existingRows) --}}
+        <div class="card radius-15 border-lg-top-primary">
+            <div class="card-body">
+                <div class="card-title">
+                    <h4 class="mb-0">{{ isset($form) ? __('Edit :type', ['type' => $form->name]) : __('Create') }}</h4>
+                </div>
+                <hr>
+                <form method="POST"
+                    action="{{ isset($form) ? route('forms.update', ['form' => $form]) : route('forms.store') }}"
+                    enctype="multipart/form-data">
+                    @if (isset($form))
+                    @method('PUT')
+                    @endif
+                    @csrf
+                    <div class="row">
+                        <input type="hidden" name="rows" id="rows" value="[]">
+                        <div style="height: 0.5cm;"></div>
+                        <x-forms.text-input-component name="name" id="name" type="text" text="Name"
+                            value="{{ isset($form) ? $form->name : (is_array(old('name')) ? '' : old('name')) }}"
+                            placeholder="{{ __('Enter :value', ['value' => __('Form Name')]) }}">
+                        </x-forms.text-input-component>
+                        <x-input-error :messages="$errors->get('name')" class="mt-2 text-danger" />
+                        <x-forms.text-input-component name="form_link" id="form_link" type="text" text="Form Link"
+                            value="{{ isset($form) ? $form->form_link : old('form_link') }}"
+                            placeholder="{{ __('Enter :value', ['value' => __('Form Link')]) }}">
+                        </x-forms.text-input-component>
+                        <x-input-error :messages="$errors->get('form_link')" class="mt-2 text-danger" />
+                        <x-forms.text-input-component name="description" id="description" type="text" text="Description"
+                            value="{{ isset($form) ? $form->description : old('description') }}"
+                            placeholder="{{ __('Enter :value', ['value' => __('Description')]) }}">
+                        </x-forms.text-input-component>
+                        <x-input-error :messages="$errors->get('description')" class="mt-2 text-danger" />
 
-                            <x-forms.text-input-component name="informations" id="informations" type="text"
-                                text="Informations" value="{{ isset($form) ? $form->informations : old('informations') }}"
-                                placeholder="{{ __('Enter :value', ['value' => __('Informations')]) }}">
-                            </x-forms.text-input-component>
-                            <x-input-error :messages="$errors->get('informations')" class="mt-2 text-danger" />
-                            <div class="form-group col-lg-12">
-                                <label>{{ __('Published') }}</label>
-                                <div class="input-group input-group-lg">
-                                    <select name="published" class="custom-select" id="published" required>
-                                        <option value="">{{ __('Select :type', ['type' => __('Status')]) }}
-                                        </option>
-                                        <option @if (isset($form) && $form->published == true) selected="selected" @endif value=true>Yes
-                                        </option>
-                                        <option @if (isset($form) && $form->published == false) selected="selected" @endif value=false>No
-                                        </option>
-                                    </select>
-                                </div>
+                        <x-forms.text-input-component name="informations" id="informations" type="text"
+                            text="Informations" value="{{ isset($form) ? $form->informations : old('informations') }}"
+                            placeholder="{{ __('Enter :value', ['value' => __('Informations')]) }}">
+                        </x-forms.text-input-component>
+                        <x-input-error :messages="$errors->get('informations')" class="mt-2 text-danger" />
+                        <div class="form-group col-lg-12">
+                            <label>{{ __('Published') }}</label>
+                            <div class="input-group input-group-lg">
+                                <select name="published" class="custom-select" id="published" required>
+                                    <option value="">{{ __('Select :type', ['type' => __('Status')]) }}
+                                    </option>
+                                    <option @if (isset($form) && $form->published == true) selected="selected" @endif
+                                        value=true>Yes
+                                    </option>
+                                    <option @if (isset($form) && $form->published == false) selected="selected" @endif
+                                        value=false>No
+                                    </option>
+                                </select>
                             </div>
-                            <x-input-error :messages="$errors->get('published')" class="mt-2 text-danger" />
-                            <div style="height: 2cm;"></div>
+                        </div>
+                        <x-input-error :messages="$errors->get('published')" class="mt-2 text-danger" />
+                        <div style="height: 2cm;"></div>
 
-                            <div class="form-group col-lg-12">
-                                <label>{{ __('Input Type') }}</label>
-                                <div class="input-group input-group-lg">
-                                    <div class="row">
-                                        <div class="col-9">
-                                            <select id="input_type" class="custom-select" name="input_type"
-                                                data-placeholder="{{ __('Select :type', ['type' => __('Input')]) }}">
-                                                <option value="0">
-                                                    {{ __('Select :type', ['type' => __('All Inputs Type')]) }}
-                                                </option>
-                                                @foreach ($types as $type)
-                                                    <option value="{{ $type }}">{{ $type }} input</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-3">
-                                            <a class="btn btn-primary" id="addDiv">+</a>
-                                        </div>
+                        <div class="form-group col-lg-12">
+                            <label>{{ __('Input Type') }}</label>
+                            <div class="input-group input-group-lg">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <select id="input_type" class="custom-select" name="input_type"
+                                            data-placeholder="{{ __('Select :type', ['type' => __('Input')]) }}">
+                                            <option value="0">
+                                                {{ __('Select :type', ['type' => __('All Inputs Type')]) }}
+                                            </option>
+                                            @foreach ($types as $type)
+                                            <option value="{{ $type }}">{{ $type }} input</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <a class="btn btn-primary" id="addDiv">+</a>
                                     </div>
                                 </div>
                             </div>
-                            <div style="height: 2cm;"></div>
-                            <div id="rowParent">
-                            </div>
-                            <div style="height: 2cm;"></div>
+                        </div>
+                        <div style="height: 2cm;"></div>
+                        <div id="rowParent">
+                        </div>
+                        <div style="height: 2cm;"></div>
 
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-danger px-5">{{ __('Save') }}</button>
-                            </div>
-                    </form>
-                </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-danger px-5">{{ __('Save') }}</button>
+                        </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 @endsection
 @section('scripts')
-    <script src="{{ asset('assets') }}/js/dashmix.app.min.js"></script>
+<script src="{{ asset('assets') }}/js/dashmix.app.min.js"></script>
 
-    <script src="{{ asset('assets') }}/js/lib/jquery.min.js"></script>
+<script src="{{ asset('assets') }}/js/lib/jquery.min.js"></script>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
             $('#input_type').select2({
                 placeholder: "{{ __('Select :type', ['type' => __('Input')]) }}",
                 allowClear: true,
@@ -402,6 +404,66 @@
                         document.getElementById('rows').value = JSON.stringify(existingRows);
                     }
 
+                } else if (inputTypeValue == 'selector') {
+                    const tr = document.createElement("div");
+                    tr.className = "row";
+                    const actionTd = document.createElement("div");
+                    actionTd.className = "col-1";
+                    const removeButton = document.createElement("a");
+                    removeButton.innerText = "X";
+                    removeButton.className = "btn btn-danger";
+                    removeButton.addEventListener("click", () => {
+                        tr.remove();
+                        updateRowsData();
+                    });
+                    actionTd.appendChild(removeButton);
+
+                    tr.appendChild(createHiddenElement(inputTypeValue));
+                    tr.appendChild(createElement("col-3", "text", "fieldName[]", "Name", row['name'], "nameid", true));
+                    tr.appendChild(createElement("col-3", "text", "placeholder[]", "Placeholder", row['placeholder'], "placeholderid", true));
+                    tr.appendChild(createElement("col-3", "checkbox", "required[]", "input", row['required'], "requiredid", false, "Required"));
+
+                    const numOptionsInput = createInputField("Number of Options");
+                    numOptionsInput.type = "number";
+                    numOptionsInput.min = "0";
+                    numOptionsInput.name = "numOptions[]";
+                    numOptionsInput.id = "numOptions";
+                    numOptionsInput.value = row['length'];
+                    numOptionsInput.required = true;
+
+                    const optionsContainer = document.createElement("div");
+                    optionsContainer.id = "optionsContainer";
+                    createOptionsInputs(optionsContainer, row);
+                    const createOptionsButton = document.createElement("button");
+                    createOptionsButton.innerText = "Create Options";
+                    createOptionsButton.className = "btn btn-primary";
+                    createOptionsButton.addEventListener("click", () => {
+                        event.preventDefault();
+                        createOptionsInputs(optionsContainer);
+                        updateRowsData();
+                    });
+
+                    const actionContainer = document.createElement("div");
+                    actionContainer.className = "col-2";
+                    actionContainer.appendChild(numOptionsInput);
+                    actionContainer.appendChild(createOptionsButton);
+                    actionContainer.appendChild(optionsContainer);
+
+                    tr.appendChild(actionContainer);
+                    tr.appendChild(actionTd);
+                    rowParent.appendChild(tr);
+
+                    const newRowData = {
+                        inputType: inputTypeValue,
+                        name: row['name'],
+                        placeholder: row['placeholder'],
+                        required: row['required'],
+                        numOptions: row['length'],
+                        options: row['files_type'],
+                    };
+
+                    existingRows.push(newRowData);
+                    document.getElementById('rows').value = JSON.stringify(existingRows);
                 }
 
                 function removeTr(element) {
@@ -553,7 +615,7 @@
                     const multiFileChangeHandler = () => {
                         filesNumTd.style.display = multiFileInput.checked ? 'block' : 'none';
                         filesNumInput.required = multiFileInput
-                            .checked; // Update the required attribute based on the checkbox state
+                            .checked;
                     };
 
                     multiFileInput.addEventListener("change", multiFileChangeHandler);
@@ -623,7 +685,9 @@
                     tr.appendChild(createElement("col-3", "text", "fieldName[]", "Name", null, "nameid", true));
                     tr.appendChild(createElement("col-3", "text", "placeholder[]", "Placeholder", null,
                         "placeholderid", true));
-
+                        tr.appendChild(createElement("col-2", "checkbox", "required[]", "input", null, "requiredid",
+                        false,
+                        "Required"));
                     const numOptionsInput = createInputField("Number of Options");
                     numOptionsInput.type = "number";
                     numOptionsInput.min = "0";
@@ -659,6 +723,7 @@
                         placeholder: "",
                         numOptions: 0,
                         options: [],
+                        required: false,
                     };
 
                     existingRows.push(newRowData);
@@ -671,15 +736,28 @@
             }
 
 
-            function createOptionsInputs(parentElement) {
-                const numOptions = document.getElementById("numOptions").value;
-                const optionsContainer = parentElement.querySelector("#optionsContainer");
-                optionsContainer.innerHTML = ""; // Clear previous inputs
+            function createOptionsInputs(parentElement, field = null) {
+                const numOptions = field ? field['length'] : document.getElementById("numOptions").value;
+                const optionsContainer = parentElement;
+                optionsContainer.innerHTML = "";
 
-                for (let i = 1; i <= numOptions; i++) {
-                    const optionInput = createInputField(`Option ${i}`);
-                    optionInput.name = `options[${i}]`;
-                    optionsContainer.appendChild(optionInput);
+                if (field && field['files_type']) {
+                    const filesType = Array.isArray(field['files_type']) ? field['files_type'] : JSON.parse(field['files_type']);
+
+                    for (let i = 1; i <= numOptions; i++) {
+                        const optionInput = createInputField(`Option ${i}`);
+                        optionInput.name = `options[${i}]`;
+                        if (filesType[i - 1]) {
+                            optionInput.value = filesType[i - 1];
+                        }
+                        optionsContainer.appendChild(optionInput);
+                    }
+                } else {
+                    for (let i = 1; i <= numOptions; i++) {
+                        const optionInput = createInputField(`Option ${i}`);
+                        optionInput.name = `options[${i}]`;
+                        optionsContainer.appendChild(optionInput);
+                    }
                 }
             }
 
@@ -824,8 +902,9 @@
                 const nameInput = row.querySelector('input[name="fieldName[]"]');
                 const placeholderInput = row.querySelector('input[name="placeholder[]"]');
                 const numOptionsInput = row.querySelector('input[name="numOptions[]"]');
+                const requiredInput = row.querySelector('input[name="required[]"]');
 
-                if (inputTypeInput && nameInput && placeholderInput && numOptionsInput) {
+                if (inputTypeInput && nameInput && placeholderInput && numOptionsInput&&requiredInput) {
                     const numOptions = numOptionsInput.value;
                     const options = [];
 
@@ -842,6 +921,7 @@
                         placeholder: placeholderInput.value,
                         numOptions: numOptions,
                         options: options,
+                        required: requiredInput.checked,
                     };
 
                     const existingRowIndex = existingRows.findIndex(row => (
@@ -849,7 +929,8 @@
                         row.name === existingRow.name &&
                         row.placeholder === existingRow.placeholder &&
                         row.numOptions === existingRow.numOptions &&
-                        JSON.stringify(row.options) === JSON.stringify(existingRow.options)
+                        JSON.stringify(row.options) === JSON.stringify(existingRow.options)&&
+                        row.required === existingRow.required
                     ));
 
                     if (existingRowIndex !== -1) {
@@ -871,5 +952,5 @@
             document.getElementById("addDiv").addEventListener("click", createRow);
             rowParent.addEventListener('input', updateRowsData);
         });
-    </script>
+</script>
 @endsection

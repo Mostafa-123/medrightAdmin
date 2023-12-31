@@ -177,7 +177,6 @@ Route::get('/per', [UserController::class, 'per'])->name('error.view');
 Route::get('pro',function(){
     return view('Dashboard.dashboard.requests.show');
 });
-    Route::post('form/request', [FormController::class,'formRequest'])->name('form_request');
 Route::get('/form', [FormController::class, 'create']);
 
 require __DIR__.'/auth.php';

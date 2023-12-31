@@ -73,6 +73,7 @@ class FormController extends Controller
             }elseif ($row['inputType'] === 'selector') {
                 $options = $row['options'] ?? [];
                 $formField->files_type = json_encode($options);
+                $formField->length = $row['numOptions'] ?? 0;
             }
 
             $formField->save();
@@ -89,115 +90,9 @@ class FormController extends Controller
         return view('Dashboard.dashboard.forms.show',compact('form'));
     }
 
-    public function formRequest(Request $request)
-    {
-        $form = json_decode($request->form, true);
 
-        if (isset($form['fields'])) {
-            $this->fieldValidation($request);
 
-            foreach ($form['fields'] as $field) {
-                $fieldId = $field['id'];
 
-                if ($request->has($fieldId)) {
-                    $data = [
-                        'form_id' => $form['id'],
-                        'field_id' => $fieldId,
-                    ];
-
-                    if ($field['input_type'] == 'file') {
-                        $files = $request->file($fieldId);
-
-                        if (is_array($files)) {
-                            $filePaths = [];
-
-                            foreach ($files as $file) {
-                                $imageName = $form['id'] . $field['name'] . time() . '.' . $file->extension();
-                                $file->move(public_path('forms/images'), $imageName);
-                                $filePaths[] = 'forms/images' . $imageName;
-                            }
-
-                            $data['value'] = json_encode($filePaths);
-                        } else {
-                            $imageName = $form['id'] . $field['name'] . time() . '.' . $files->extension();
-                            $files->move(public_path('forms/images'), $imageName);
-                            $data['value'] = 'forms/images' . $imageName;
-                        }
-                    } elseif ($field['input_type'] == 'password') {
-                        $data['value'] = Hash::make($request->input($fieldId));
-                    } else {
-                        $data['value'] = $request->input($fieldId);
-                    }
-
-                    FormRequests::create($data);
-                }
-            }
-        }
-
-        return redirect()->back()->with('success', 'Your request has been sent successfully. Please wait until we contact you. Do not submit more than once.');
-    }
-
-    public function fieldValidation($request)
-{
-    $form = json_decode($request->form, true);
-    $rules = [];
-    $messages = [];
-
-    foreach ($form['fields'] as $field) {
-        $fieldId = $field['id'];
-        $fieldName = $field['name'];
-
-        if ($field['input_type'] == 'file') {
-            if ($field['required'] == 1) {
-                if ($field['multi_file'] == 1) {
-                    $rules["$fieldId"] = "required|array";
-                    $rules["$fieldId.*"] = "file|max:" . ($field['file_size'] * 1024) . "|mimes:" . implode(',', $field['files_type']);
-                } else {
-                    $rules["$fieldId"] = "file|required|max:" . ($field['file_size'] * 1024) . "|mimes:" . implode(',', $field['files_type']);
-                }
-            } else {
-                if ($field['multi_file'] == 1) {
-                    $rules["$fieldId"] = "array";
-                    $rules["$fieldId.*"] = "file|max:" . ($field['file_size'] * 1024) . "|mimes:" . implode(',', $field['files_type']);
-                } else {
-                    $rules["$fieldId"] = "file|max:" . ($field['file_size'] * 1024) . "|mimes:" . implode(',', $field['files_type']);
-                }
-            }
-        } else if ($field['input_type'] == 'email') {
-            if ($field['required'] == 1) {
-                $rules["$fieldId"] = 'required|unique:form_requests,value';
-            }
-        } else {
-            if ($field['required'] == 1) {
-                $rules["$fieldId"] = "required|max:{$field['length']}";
-            }
-        }
-
-        if ($field['required'] == 1) {
-            $messages["$fieldId.required"] = "$fieldName is required.";
-        }
-
-        if ($field['input_type'] == 'file') {
-            if ($field['multi_file'] == 1) {
-                $messages["$fieldId.*.max"] = "$fieldName must not be greater than {$field['file_size']} KB.";
-                $messages["$fieldId.*.mimes"] = "$fieldName must be of type " . implode(', ', $field['files_type']);
-            } else {
-                $messages["$fieldId.max"] = "$fieldName must not be greater than {$field['file_size']} KB.";
-                $messages["$fieldId.mimes"] = "$fieldName must be of type " . implode(', ', $field['files_type']);
-            }
-        } else if ($field['input_type'] == 'email') {
-            $messages["$fieldId.unique"] = "This $fieldName is already used.";
-        } else {
-            $messages["$fieldId.max"] = "$fieldName must not exceed {$field['length']} characters.";
-        }
-    }
-
-    $validator = Validator::make($request->all(), $rules, $messages);
-
-    if ($validator->fails()) {
-        abort(400, $validator->errors()->first());
-    }
-}
 
     /**
      * Show the form for editing the specified resource.
@@ -223,7 +118,7 @@ class FormController extends Controller
      */
     public function update(Request $request, Form $form)
 {
-    // dd($request);
+        // dd($request);
     // $this->validateForm($request);
 
     $existingFieldIds = $form->fields()->pluck('id')->toArray();
@@ -237,7 +132,6 @@ class FormController extends Controller
     ];
 
     $form->update($updateData);
-    FormFields::destroy($existingFieldIds);
 
     $rows = json_decode($request->input('rows'), true);
 
@@ -258,6 +152,7 @@ class FormController extends Controller
         if ($row['inputType'] === 'selector') {
             $options = $row['options'] ?? [];
             $formField->file_types = json_encode($options);
+            $formField->length = $row['numOptions'] ?? 0;
             $formField->save();
         }
     }
