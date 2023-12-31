@@ -42,7 +42,7 @@ class FormController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        dd($request);
         $this->validateForm($request);
 
         $form = Form::create([
@@ -90,7 +90,10 @@ class FormController extends Controller
         return view('Dashboard.dashboard.forms.show',compact('form'));
     }
 
-
+    public function formData(Form $form)
+    {
+        return view('Dashboard.dashboard.forms.form_data',compact('form'));
+    }
 
 
 

@@ -24,6 +24,10 @@ class FormsDataTable extends DataTable
         return (new EloquentDataTable($query))
         ->editColumn('action', function($model){
             $html='<div class="btn-group">';
+            if (PerUser('forms.show')) {
+                $html .= '<a href="' . route('forms.data', ['form' => $model->id]) . '" class="btn btn-sm btn-alt-primary js-bs-tooltip-enabled edit-this">
+                               📊 <span class="fadeIn animated bx bx-edit-alt"></span> </a>';
+            }
             if(PerUser('forms.show')){
                 $html.='<a  href="'.route('forms.show',['form'=>$model->id]).'" class="btn btn-sm btn-alt-primary js-bs-tooltip-enabled edit-this">
                            &ocir;  <span class="fadeIn animated bx bx-edit-alt"></span> </a>';

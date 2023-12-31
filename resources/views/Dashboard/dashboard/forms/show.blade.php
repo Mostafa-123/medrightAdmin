@@ -53,7 +53,6 @@ $failMessage = Session::get('fail');
                 @if (isset($form) && isset($form->fields))
                 <form class="row g-3" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="form" id="form" value="{{ $form }}">
                     @foreach ($form->fields as $field)
                     <div class="col-md-12">
                         <label for="{{ $field['name'] }}" class="form-label">{{ $field['name'] }}</label>
@@ -73,7 +72,12 @@ $failMessage = Session::get('fail');
                         </select>
                         @else
                         <input class="form-control"
-                            type="@if ($field['input_type'] == 'phone') tel @else {{ $field['input_type'] }} @endif"
+                        @if($field['input_type'] == 'phone')
+                        type="tel"
+
+                             @else
+                             type="{{$field['input_type']}}"
+                             @endif
 
                             @if($field['required']==1) required="required"@endif
 
@@ -136,10 +140,7 @@ $failMessage = Session::get('fail');
 
 <script>
     $(document).on('click', '.export-type', function(e) {
-        $('.custom-select').select2({
-            placeholder: "Please Select",
-            allowClear: true,
-        });
+
             e.preventDefault();
             let form = $(this).closest('div').find('form');
             form.find('[name="export_type"]').val($(this).attr('data-type'));

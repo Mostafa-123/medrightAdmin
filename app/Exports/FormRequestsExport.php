@@ -24,7 +24,7 @@ class FormRequestsExport implements WithMapping, WithHeadings, FromQuery
      */
     public function query()
     {
-        return Form::find($this->id)->formRequests();
+        return Form::find($this->id)->formRequests;
     }
 
     /**
@@ -32,13 +32,21 @@ class FormRequestsExport implements WithMapping, WithHeadings, FromQuery
      * @return array
      */
     public function map($request): array
-    {
-        return [
-            $request->form->name,
-            $request->value!=null ? ($request->field->input_type == 'file' ? Config::get('website_url') . '/' . $request->value : $request->value) : '__',
-            $request->created_at ? $request->created_at->format('Y-m-d H:i:s') : '',
-        ];
+{
+    $data = [];
+
+    foreach ($this->form->fields as $field) {
+        $formRequestField = $this->form->formRequests->where('field_id', $field->id)->first();
+
+        $data[] = $formRequestField ? $formRequestField->value : '__';
     }
+
+    return [
+        $request->form->name,
+        ...$data,
+        $request->created_at ? $request->created_at->format('Y-m-d H:i:s') : '',
+    ];
+}
 
     /**
      * @return array

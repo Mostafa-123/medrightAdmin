@@ -158,6 +158,7 @@ Route::middleware(['auth','checkRole'])->prefix('admin')->group(function () {
 
     Route::group(['prefix' => 'forms'], function () {
         Route::post('/export', [FormController::class, 'export'])->name('forms.export');
+        Route::get('form/data', [FormController::class, 'formData'])->name('forms.data');
         Route::resource('/', FormController::class)->names([
             'index' => 'forms.index',
             'create' => 'forms.create',
