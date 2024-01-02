@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class FormRequests extends Model
+class FormUnit extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
+
     protected $connection = 'website';
     protected $guarded=['id'];
 
@@ -16,12 +16,8 @@ class FormRequests extends Model
     {
         return $this->belongsTo(Form::class, 'form_id');
     }
-    public function field()
+    public function formRequests()
     {
-        return $this->belongsTo(FormFields::class, 'field_id');
-    }
-    public function unit()
-    {
-        return $this->belongsTo(FormUnit::class, 'unit_id');
+        return $this->hasMany(FormRequests::class, 'unit_id');
     }
 }

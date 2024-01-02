@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('website')->create('form_requests', function (Blueprint $table) {
+        Schema::connection('website')->create('form_units', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('form_id');
-            $table->unsignedBigInteger('field_id');
-            $table->string('value')->nullable();
             $table->foreign('form_id')->references('id')->on('forms')->onDelete('cascade');
-            $table->foreign('field_id')->references('id')->on('form_fields')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('form_requests');
+        Schema::dropIfExists('form_units');
     }
 };

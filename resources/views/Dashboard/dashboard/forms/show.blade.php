@@ -27,6 +27,28 @@ Forms
         .select2-container--default .select2-selection--multiple {
             min-height: 40px;
         }
+        textarea {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+
+        textarea:hover {
+            border-color: #007bff;
+        }
+
+        textarea:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            border-color: #007bff;
+        }
+        textarea {
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
 </style>
 @endsection
 @section('content')
@@ -62,14 +84,24 @@ $failMessage = Session::get('fail');
                         $placeholderText = __('Select :type', ['type' => $field['placeholder']]);
                         @endphp
                         <select id="{{ $field['name'] }}" @if ($field['required']==1) required="required" @endif
-                            class="custom-select" name="{{ $field['id'] }}" data-placeholder="{{ $placeholderText }}">
+                            class="custom-select" name="{{ $field['name'] }}" data-placeholder="{{ $placeholderText }}">
                             <option value="0">
                                 {{ __('Select :type', ['type' => __('All :type', ['type' => $field['placeholder']])]) }}
                             </option>
                             @foreach ($options as $option)
-                            <option value="{{ $option }}">{{ $option }} input</option>
+                            <option value="{{ $option }}">{{ $option }}</option>
                             @endforeach
                         </select>
+                        @elseif ($field['input_type'] == 'textarea')
+                        <textarea name="{{ $field['name'] }}"
+                        id="{{ $field['name'] }}"
+                        maxlength="{{ $field['length'] }}"
+                        @if (isset($field['placeholder']))
+                            placeholder="{{ $field['placeholder'] }}"
+                            @endif
+                        @if($field['required']==1) required="required"@endif
+
+                         ></textarea>
                         @else
                         <input class="form-control"
                         @if($field['input_type'] == 'phone')
@@ -85,7 +117,7 @@ $failMessage = Session::get('fail');
                             placeholder="{{ $field['placeholder'] }}"
                             @endif
 
-                            name="{{ $field['id'] }}"
+                            name="{{ $field['name'] }}"
                             id="{{ $field['name'] }}"
 
                             @if ($field['input_type'] !='file' && $field['input_type'] !='email' )

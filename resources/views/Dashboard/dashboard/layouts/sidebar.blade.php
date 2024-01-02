@@ -109,7 +109,7 @@
                 @if(PerUser('forms.index'))
                 <li class="nav-main-item">
                     <a class="nav-main-link" href="{{ route('forms.index') }}">
-                        <i class="nav-main-link-icon fa fa-user-friends"></i>
+                        <i class="nav-main-link-icon fab fa-wpforms"></i>
                         <span class="nav-main-link-name">Forms</span>
                     </a>
                 </li>

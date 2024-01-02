@@ -65,6 +65,7 @@ class RolesAndPermissionsseeder extends Seeder
                 'forms.import',
                 'forms.show',
                 'forms.editor',
+                'forms.data',
 
                 /*levels*/
                 'levels.create',

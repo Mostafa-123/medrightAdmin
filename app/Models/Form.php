@@ -21,5 +21,9 @@ class Form extends Model
     {
         return $this->hasMany(FormRequests::class, 'form_id');
     }
+    public function units()
+    {
+        return $this->hasMany(FormUnit::class, 'form_id');
+    }
 
 }

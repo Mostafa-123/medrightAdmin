@@ -42,7 +42,7 @@ class FormController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        // dd($request);
         $this->validateForm($request);
 
         $form = Form::create([
@@ -90,8 +90,9 @@ class FormController extends Controller
         return view('Dashboard.dashboard.forms.show',compact('form'));
     }
 
-    public function formData(Form $form)
+    public function formData($id)
     {
+        $form=Form::findOrFail($id);
         return view('Dashboard.dashboard.forms.form_data',compact('form'));
     }
 
@@ -132,6 +133,7 @@ class FormController extends Controller
         'description' => $request->input('description'),
         'informations' => $request->input('informations'),
         'published' => $request->input('published') === 'true',
+        'published_by'=>$request->input('published') === 'true'&&$form->published !='true'?auth()->user()->id:null,
     ];
 
     $form->update($updateData);
@@ -154,8 +156,8 @@ class FormController extends Controller
         );
         if ($row['inputType'] === 'selector') {
             $options = $row['options'] ?? [];
-            $formField->file_types = json_encode($options);
-            $formField->length = $row['numOptions'] ?? 0;
+            $formField->files_type = json_encode($options);
+            $formField->length = count($row['options']) ?? 0;
             $formField->save();
         }
     }

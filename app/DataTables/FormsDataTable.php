@@ -25,7 +25,7 @@ class FormsDataTable extends DataTable
         ->editColumn('action', function($model){
             $html='<div class="btn-group">';
             if (PerUser('forms.show')) {
-                $html .= '<a href="' . route('forms.data', ['form' => $model->id]) . '" class="btn btn-sm btn-alt-primary js-bs-tooltip-enabled edit-this">
+                $html .= '<a href="' . route('forms.data', [$model->id]) . '" class="btn btn-sm btn-alt-primary js-bs-tooltip-enabled">
                                📊 <span class="fadeIn animated bx bx-edit-alt"></span> </a>';
             }
             if(PerUser('forms.show')){
@@ -37,7 +37,7 @@ class FormsDataTable extends DataTable
               <i class="fas fa-pencil-alt"></i><span class="fadeIn animated bx bx-edit-alt"></span> </a>';
             }
             if(PerUser('forms.destroy')){
-                $html.='<button  type="button" class="btn btn-sm btn-alt-danger js-bs-tooltip-enabled " id="delete-this" data-id="'.$model->id.'" data-url="'.route('forms.destroy',['form'=>$model->id]).'">
+                $html.='<button  type="button" class="btn btn-sm btn-alt-danger js-bs-tooltip-enabled" id="delete-this" data-id="'.$model->id.'" data-url="'.route('forms.destroy',['form'=>$model->id]).'">
                 &Cross;
                 </button>';
               }

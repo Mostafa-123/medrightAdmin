@@ -158,7 +158,7 @@ Route::middleware(['auth','checkRole'])->prefix('admin')->group(function () {
 
     Route::group(['prefix' => 'forms'], function () {
         Route::post('/export', [FormController::class, 'export'])->name('forms.export');
-        Route::get('form/data', [FormController::class, 'formData'])->name('forms.data');
+        Route::get('data/{id}', [FormController::class, 'formData'])->name('forms.data');
         Route::resource('/', FormController::class)->names([
             'index' => 'forms.index',
             'create' => 'forms.create',
@@ -174,7 +174,6 @@ Route::middleware(['auth','checkRole'])->prefix('admin')->group(function () {
 
 });
 Route::get('/error', [RoleController::class, 'error'])->name('error.view');
-Route::get('/per', [UserController::class, 'per'])->name('error.view');
 Route::get('pro',function(){
     return view('Dashboard.dashboard.requests.show');
 });

@@ -6,6 +6,7 @@ Forms
 <link rel="stylesheet" href="{{asset('assets')}}/js/plugins/datatables-bs5/css/dataTables.bootstrap5.min.css">
 <link rel="stylesheet" href="{{asset('assets')}}/js/plugins/datatables-buttons-bs5/css/buttons.bootstrap5.min.css">
 <link rel="stylesheet" href="{{asset('assets')}}/js/plugins/datatables-responsive-bs5/css/responsive.bootstrap5.min.css">
+
 @endsection
 @section('content')
 @if (Session::get('success'))
@@ -21,29 +22,59 @@ Forms
                     <div class="card-title">
                         <h4 class="mb-0">{{ __('Form Data') }}
                         </h4>
-                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    </div>
+                    <hr>
+                    <div class="card-body">
+                        <table id="formData" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
                                     @if (isset($form)&&isset($form->fields))
                                     @foreach ($form->fields as $field)
+                                    @if ($field['input_type']=='password')
+                                    @else
                                     <th>{{$field['name']}}</th>
+                                    @endif
                                     @endforeach
                                     @endif
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($form->units as $unit)
                                 <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011-04-25</td>
-                                    <td>$320,800</td>
+                                    @foreach ($form->fields as $field)
+                                    @php
+                                        $formRequest = $unit->formRequests->where('field_id', $field['id'])->first();
+                                    @endphp
+                                    @if ($field['input_type']=='password')
+                                    @else
+                                    <td>
+                                        @if ($formRequest)
+                                        @if($field['input_type']=='file')
+                                        @if($field['multi_file'])
+                                        @php
+                                            $fiels=json_decode($formRequest->value,true)
+                                        @endphp
+                                        @foreach ($fiels as $file)
+                                        <a href="{{$file}}">{{ $file }}</a>
+                                        @endforeach
+                                        @else
+                                        <a href="{{$formRequest->value}}">{{ $formRequest->value }}</a>
+                                        @endif
+                                        @elseif($field['input_type']=='selector'&&$formRequest->value==0)
+                                        Any Of Choices
+                                        @else
+                                        {{ $formRequest->value }}
+                                        @endif
+                                        @endif
+                                    </td>
+                                    @endif
+
+                                    @endforeach
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-                    <hr>
 
                 </div>
             </div>
@@ -51,12 +82,22 @@ Forms
     </div>
 @endsection
 @section('scripts')
+<script src="{{asset('assets')}}/js/dashmix.app.min.js"></script>
+
 <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
 
 <script>
+
+
+
     document.addEventListener('DOMContentLoaded', function() {
-        new DataTable('#formData');
-    }):
+        $( document ).ready(function() {
+            new DataTable('#formData');
+        });
+    });
     $(document).on('click', '#delete-this', function (e) {
         e.preventDefault();
         let el = $(this);
@@ -88,21 +129,8 @@ Forms
 </script>
 
 
-  <script src="{{asset('assets')}}/js/dashmix.app.min.js"></script>
 
   <!-- jQuery (required for DataTables plugin) -->
 
-  <script src="{{asset('assets')}}/js/plugins/datatables-bs5/js/dataTables.bootstrap5.min.js"></script>
-  <script src="{{asset('assets')}}/js/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-  <script src="{{asset('assets')}}/js/plugins/datatables-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
-  <script src="{{asset('assets')}}/js/plugins/datatables-buttons/dataTables.buttons.min.js"></script>
-  <script src="{{asset('assets')}}/js/plugins/datatables-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
-  <script src="{{asset('assets')}}/js/plugins/datatables-buttons-jszip/jszip.min.js"></script>
-  <script src="{{asset('assets')}}/js/plugins/datatables-buttons-pdfmake/pdfmake.min.js"></script>
-  <script src="{{asset('assets')}}/js/plugins/datatables-buttons-pdfmake/vfs_fonts.js"></script>
-  <script src="{{asset('assets')}}/js/plugins/datatables-buttons/buttons.print.min.js"></script>
-  <script src="{{asset('assets')}}/js/plugins/datatables-buttons/buttons.html5.min.js"></script>
 
-  <!-- Page JS Code -->
-  <script src="{{asset('assets')}}/js/pages/be_tables_datatables.min.js"></script>
   @endsection
