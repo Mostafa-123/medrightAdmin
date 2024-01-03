@@ -41,7 +41,7 @@
      </div>
    </section>
 
-   <section class="divider-area bgcolor-theme bg-img" data-bg-img="{{asset('frontend/assets')}}/img/shape/01.jpg" style="background-image: url(&quot;{{asset('frontend/assets')}}/img/shape/01.jpg&quot;);">
+   <section class="divider-area bgcolor-theme bg-img" data-bg-img="{{asset('frontend/assets')}}/img/shape/01.png" style="background-image: url(&quot;{{asset('frontend/assets')}}/img/shape/01.png&quot;);">
      <div class="container">
        <div class="row content-align-center py-5" data-aos="fade-up" data-aos-duration="1100">
          <div class="col-lg-12">

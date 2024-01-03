@@ -179,7 +179,7 @@
 </div>
 </section>
 
-<section class="divider-area bgcolor-theme bg-img py-5" data-bg-img="{{asset('frontend/assets')}}/img/shape/01.jpg" style="background-image: url(&quot;{{asset('frontend/assets')}}/img/shape/01.jpg&quot;);">
+<section class="divider-area bgcolor-theme bg-img py-5" data-bg-img="{{asset('frontend/assets')}}/img/shape/01.png" style="background-image: url(&quot;{{asset('frontend/assets')}}/img/shape/01.png&quot;);">
 <div class="container">
   <div class="row">
     <h2 class="text-center fw-bolder font-size-50 text-white mb-5">روابط  <span class="fw-light">مفيدة</span></h2>

@@ -66,7 +66,7 @@
 </section>
 <!--== End wellness program Wrapper ==-->
 
-<section class="divider-area bgcolor-theme bg-img" data-bg-img="{{ asset('frontend/assets') }}/img/shape/01.jpg">
+<section class="divider-area bgcolor-theme bg-img" data-bg-img="{{ asset('frontend/assets') }}/img/shape/01.png">
 <div class="container">
  <div class="row content-align-center">
    <div class="col-lg-12">

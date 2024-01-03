@@ -84,8 +84,8 @@
 
 
 
-    <section class="divider-area bgcolor-theme bg-img" data-bg-img="{{ asset('frontend/assets') }}/img/shape/01.jpg"
-        style="background-image: url(&quot;{{ asset('frontend/assets') }}/img/shape/01.jpg&quot;);">
+    <section class="divider-area bgcolor-theme bg-img" data-bg-img="{{ asset('frontend/assets') }}/img/shape/01.png"
+        style="background-image: url(&quot;{{ asset('frontend/assets') }}/img/shape/01.png&quot;);">
         <div class="container">
             <div class="row content-align-center">
                 <div class="col-lg-12 aos-init aos-animate" data-aos="fade-up" data-aos-duration="1100">

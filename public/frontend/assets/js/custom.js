@@ -126,6 +126,9 @@
           (e(this).scrollTop() >= 80
             ? e(".sticky-header").addClass("sticky")
             : e(".sticky-header").removeClass("sticky"));
+            (e(this).scrollTop() >= 80
+            ? e(".new-nav").removeClass("custom-nav")
+            : e(".new-nav").addClass("custom-nav"));
     }),
     jQuery(document).ready(function (e) {
       var t = e("#contact-form"),
@@ -253,7 +256,18 @@ function updateHrValue(input, output, addition) {
 window.addEventListener("scroll", checkCounters), checkCounters();
 
 
+// add field in request medical approval page
+let otherInput = document.querySelector(".selectCat")
+otherInput.addEventListener("change",function (event) {
+    if (event.currentTarget.value === "others") {
+        document.querySelector(".hidden-input").style.display = "block"
+    }else{
+        document.querySelector(".hidden-input").style.display = "none"
+    }
+   
+})
 
+// arabic site 
 
 function updateMemberValueAr(e, t, s) {
   let n = document.getElementById(e),
@@ -299,3 +313,5 @@ function updateHrValueAr(input, output, addition) {
       i.parentElement.appendChild(l);
   } else i.textContent = o;
 }
+
+

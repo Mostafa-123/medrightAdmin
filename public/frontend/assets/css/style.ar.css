@@ -36,8 +36,8 @@ a:hover {
   box-shadow: none;
 }
 :root {
-  --main-color: #399;
-  --black-color: #000;
+  --main-color:  #ad172b;
+  --black-color:  #061f5c;
   --white: #ffffff;
 }
 body {
@@ -3074,8 +3074,9 @@ ul li {
   position: relative;
   z-index: 999;
 }
-.header-area.header-default:after {
+.header-area.header-default:after{
   background-color: #d9d9d9;
+  opacity: 0.3;
   bottom: 0;
   content: "";
   height: 1px;
@@ -8174,7 +8175,7 @@ ul li {
   border-radius: 10px;
 }
 .service-slider-container .category-item .icon:hover {
-  background-color: #000;
+  background-color:  #061f5c;
   color: #fff !important;
   transition: 0.5s ease-in-out;
 }
@@ -8189,7 +8190,7 @@ ul li {
   margin-left: 15px;
 }
 .btn-theme:hover {
-  background-color: #000 !important;
+  background-color:  #061f5c !important;
   color: #fff !important;
 }
 .iso-certificate {
@@ -8208,7 +8209,7 @@ ul li {
   color: #fff;
 }
 .mobile-app-area .social-icons:hover {
-  background-color: #000;
+  background-color:  #061f5c;
   transition: 0.3s ease-in-out;
 }
 .testimonial-area .swiper-slide .testimonial-img img {
@@ -8219,7 +8220,7 @@ ul li {
   margin: 10px auto;
 }
 .medical-greeting-sec a:hover {
-  background-color: #000 !important;
+  background-color:  #061f5c !important;
   transition: 0.3s ease-in-out !important;
 }
 @media (max-width: 1199px) {
@@ -8263,10 +8264,10 @@ ul li {
   }
 }
 .wellness-program-sec .wellness-link:hover {
-  color: #000;
+  color:  #061f5c;
 }
 .discount-card {
-  background-color: #000;
+  background-color:  #061f5c;
   border-radius: 10px;
   transition: box-shadow 0.3s, transform 0.3s;
 }
@@ -8722,7 +8723,7 @@ div.dataTables_wrapper div.dataTables_filter label {
 }
 .breadcrumb-sec a:hover,
 .link-hover:hover {
-  color: #000 !important;
+  color:  #061f5c !important;
 }
 .breadcrumb-sec{
   font-size: 16px !important;
@@ -8878,10 +8879,28 @@ input[type="number"] {
     width: 200px;
   }
 }
-[data-aos] {
-    opacity: 1!important;
+
+
+
+
+/* /////////////////////// */
+
+.custom-nav{
+  background-color: transparent !important;
+  position: absolute !important;
+  width: 100% !important;
+  color: white !important;
+}
+.custom-nav  .submenu-nav li a{
+  color: #aaa !important;
+}
+.custom-nav  .main-menu > li > a , .custom-nav  .header-action-area button , .custom-nav  .header-align .header-action-area .widget-language .current{ 
+  color: white !important ;
 }
 
-[data-bg-color="#eaeded"] {
-    background-color: rgb(234, 237, 237)!important;
+.custom-nav  .main-menu > li > a:hover , .custom-nav  .header-action-area button:hover ,.custom-nav  .header-align .header-action-area .widget-language .current:hover{
+  color: var(--main-color) !important ;
+}
+.custom-nav  .submenu-nav li a:hover{
+  color: var(--white) !important ;
 }

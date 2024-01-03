@@ -187,7 +187,7 @@
 </div>
 </section>
 
-<section class="divider-area bgcolor-theme bg-img" data-bg-img="{{asset('frontend/assets')}}/img/shape/01.jpg" style="background-image: url(&quot;{{asset('frontend/assets')}}/img/shape/01.jpg&quot;);">
+<section class="divider-area bgcolor-theme bg-img" data-bg-img="{{asset('frontend/assets')}}/img/shape/01.png" style="background-image: url(&quot;{{asset('frontend/assets')}}/img/shape/01.png&quot;);">
 <div class="container">
 <div class="row content-align-center">
   <div class="col-lg-12">
@@ -216,7 +216,7 @@
 </div>
 </section>
 
-<section class="divider-area bgcolor-theme bg-img" data-bg-img="{{asset('frontend/assets')}}/img/shape/01.jpg" style="background-image: url(&quot;{{asset('frontend/assets')}}/img/shape/01.jpg&quot;);">
+<section class="divider-area bgcolor-theme bg-img" data-bg-img="{{asset('frontend/assets')}}/img/shape/01.png" style="background-image: url(&quot;{{asset('frontend/assets')}}/img/shape/01.png&quot;);">
 <div class="container">
 <div class="row content-align-center">
   <div class="col-lg-12" data-aos="fade-up" data-aos-duration="1100">
@@ -249,7 +249,7 @@
 </div>
 </section>
 
-<section class="divider-area bgcolor-theme bg-img text-white" data-bg-img="{{asset('frontend/assets')}}/img/shape/01.jpg">
+<section class="divider-area bgcolor-theme bg-img text-white" data-bg-img="{{asset('frontend/assets')}}/img/shape/01.png">
 <div class="container">
 <div class="row align-items-center">
   <div class="col-md-5 mb-3 mb-lg-0" data-aos="fade-up" data-aos-duration="1100">

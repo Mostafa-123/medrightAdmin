@@ -60,7 +60,7 @@
 </section>
 
 <!--== Start Divider Area Wrapper ==-->
-<section class="divider-area bgcolor-theme bg-img" data-bg-img="{{ asset('frontend/assets') }}/img/shape/01.jpg">
+<section class="divider-area bgcolor-theme bg-img" data-bg-img="{{ asset('frontend/assets') }}/img/shape/01.png">
     <div class="container">
       <div class="row content-align-center">
         <div class="col-lg-7 order-1 order-lg-0">
@@ -219,7 +219,7 @@
     <!-- End Main Concern Area Wrapper -->
 
 <!--== Start Divider Area Wrapper ==-->
-<section class="divider-area bgcolor-theme bg-img  py-5" data-bg-img="{{ asset('frontend/assets') }}/img/shape/01.jpg">
+<section class="divider-area bgcolor-theme bg-img  py-5" data-bg-img="{{ asset('frontend/assets') }}/img/shape/01.png">
     <div class="container text-white">
         <div class="row" data-aos="fade-up" data-aos-duration="1100">
             <div class="text-center">
