@@ -120,9 +120,9 @@ class FormController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Form $form)
+   public function update(Request $request, Form $form)
 {
-        // dd($request);
+     //   dd($request);
     // $this->validateForm($request);
 
     $existingFieldIds = $form->fields()->pluck('id')->toArray();
@@ -138,30 +138,34 @@ class FormController extends Controller
 
     $form->update($updateData);
 
-    $rows = json_decode($request->input('rows'), true);
 
-    foreach ($rows as $row) {
-        $formField = FormFields::updateOrCreate(
-            ['form_id' => $form->id, 'input_type' => $row['inputType']],
-            [
-                'name' => $row['name'],
-                'placeholder' => $row['placeholder'] ?? null,
-                'length' => $row['length'] ?? 0,
-                'required' => $row['required'] ?? false,
-                'file_size' => $row['filesize'] ?? null,
-                'files_type' => $row['fileTypes'] ?? [],
-                'multi_file' => $row['multiFiles'] ?? false,
-                'file_num' => $row['filesNum'] ?? 0,
-            ]
-        );
-        if ($row['inputType'] === 'selector') {
-            $options = $row['options'] ?? [];
-            $formField->files_type = json_encode($options);
-            $formField->length = count($row['options']) ?? 0;
-            $formField->save();
+    $rows = json_decode($request->input('rows'), true);
+    if($rows==null){
+        $form->fields()->delete();
+    }else{
+
+        foreach ($rows as $row) {
+            $formField = FormFields::updateOrCreate(
+                ['form_id' => $form->id, 'input_type' => $row['inputType']],
+                [
+                    'name' => $row['name'],
+                    'placeholder' => $row['placeholder'] ?? null,
+                    'length' => $row['length'] ?? 0,
+                    'required' => $row['required'] ?? false,
+                    'file_size' => $row['filesize'] ?? null,
+                    'files_type' => $row['fileTypes'] ?? [],
+                    'multi_file' => $row['multiFiles'] ?? false,
+                    'file_num' => $row['filesNum'] ?? 0,
+                ]
+            );
+            if ($row['inputType'] === 'selector') {
+                $options = $row['options'] ?? [];
+                $formField->files_type = json_encode($options);
+                $formField->length = count($row['options']) ?? 0;
+                $formField->save();
+            }
         }
     }
-
     return redirect(route('forms.index'))->with('success', 'Updated successfully');
 }
     public function destroy(Form $form)
